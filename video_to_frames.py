@@ -24,7 +24,8 @@ def video_capture(videolink, frameinterval):
         if count % framecap == 0:  # check if the framecount can be devided by 300
             cropped = image[upper_border:height, 0:width]
             # gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
-            cv2.imwrite("%s_frame%d.jpg" % (name, count / framecap), cropped)  # save image every 300th frame
+            cv2.imwrite("frames/%s_frame%d.jpg" % (name, count / framecap), cropped)  # save image every 300th frame
+            split_image("frames/%s_frame%d.jpg" % (name, count / framecap), 480, 720)
 
         success, image = vidcap.read()
         print("read a new frame succes:", success)
@@ -44,7 +45,7 @@ def split_image(image_source, height, width): # load image and split it into squ
             y_start = y * divider
             x_start = x * divider
             segment = image[y_start:(y_start + divider), x_start:(x_start + divider)]
-            cv2.imwrite("%s_segment(%d,%d).jpg" % (name, x, y), segment)
+            cv2.imwrite("samples/%s_segment(%d,%d).jpg" % (name, x, y), segment)
 
 
 Tk().withdraw() # Simple GUI to select a file
